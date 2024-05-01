@@ -10,7 +10,19 @@ import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator((name) => `clipbroker_v3_${name}`);
+export const createTable = sqliteTableCreator(
+  (name) => `clipbroker_v3_${name}`,
+);
+
+export const texts = createTable("text", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  content: text("content", { length: 3000 }).notNull(),
+  note: text("note", { length: 256 }),
+  createdAt: int("created_at", { mode: "timestamp" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: int("updatedAt", { mode: "timestamp" }),
+});
 
 export const posts = createTable(
   "post",
@@ -24,5 +36,5 @@ export const posts = createTable(
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );
