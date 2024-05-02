@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         className={`
           ${inter.variable}
-          flex h-[100svh] items-center justify-center bg-black font-sans text-white
+          flex h-[100svh] items-center justify-center bg-black p-4 font-sans text-white
         `}
       >
         <TRPCReactProvider>{children}</TRPCReactProvider>

@@ -2,25 +2,15 @@ import Link from "next/link";
 
 import { CreatePost } from "~/app/_components/create-post";
 import { api } from "~/trpc/server";
+import { CreateText } from "./_components/create-text";
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  return <h1 className="text-3xl">clipbroker_v3</h1>;
-}
-
-async function CrudShowcase() {
-  const latestPost = await api.post.getLatest();
-
+export default function Home() {
   return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
-    </div>
+    <section className="flex h-full flex-col items-center justify-center">
+      <h1 className="text-3xl">clipbroker_v3</h1>
+      <div className="flex grow items-center justify-center">
+        <CreateText />
+      </div>
+    </section>
   );
 }
