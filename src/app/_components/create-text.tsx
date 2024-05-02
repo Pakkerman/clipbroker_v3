@@ -22,11 +22,8 @@ export function CreateText({}) {
   });
   return (
     <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const data = Object.fromEntries(formData);
-        mutate({ content: data.content as string });
+      action={(data) => {
+        mutate({ content: data.get("content") as string });
       }}
       className="flex flex-col"
     >
@@ -35,6 +32,7 @@ export function CreateText({}) {
         type="text"
         placeholder="paste something"
         className="text-black"
+        autoComplete="off"
       />
       <button className="" type="submit">
         create
