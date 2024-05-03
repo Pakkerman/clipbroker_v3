@@ -1,11 +1,10 @@
 "use client";
 
 import { api } from "~/trpc/react";
+import { useClipboard } from "../api/context/ClipboardContext";
 
-export function BoardIdentifier({ randomId }: { randomId: string }) {
-  const { isLoading, data } = api.user.getOrInsertOne.useQuery({
-    id: randomId,
-  });
+export function BoardIdentifier() {
+  const { id } = useClipboard();
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
@@ -16,7 +15,7 @@ export function BoardIdentifier({ randomId }: { randomId: string }) {
           type="text"
           minLength={6}
           maxLength={6}
-          placeholder={randomId}
+          placeholder={id}
         />
         <button type="submit">Enter</button>
       </form>
