@@ -17,7 +17,7 @@ export const createTable = sqliteTableCreator(
 export const users = createTable("user", {
   id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   clipboardId: text("clipboardId", { length: 6 }).notNull(),
-  pin: text("content", { length: 3000 }),
+  pin: text("pin", { length: 4 }),
 
   createdAt: int("created_at", { mode: "timestamp" })
     .default(sql`CURRENT_TIMESTAMP`)

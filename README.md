@@ -6,9 +6,10 @@
 - [x] create text
 - [x] show created text
 - [x] delete text
-- [ ] user login with pin
+
+- [ ] user login and pin lock
   - [x] user table
-  - [ ] auto assign user when login
-    - [ ] if enter from "/"
+  - [ ] auto assign board when user login at '/'
+    - [x] find or create new user in db
     - [ ] append random string of 6 digits and push to url
     - [ ] create user with string of digits
