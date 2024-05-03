@@ -9,5 +9,5 @@ export default {
     url: env.DATABASE_URL,
     authToken: env.DATABASE_AUTH_TOKEN,
   },
-  tablesFilter: ["clipbroker_v3_*"],
+  // tablesFilter: ["clipbroker_v3_*"],
 } satisfies Config;
