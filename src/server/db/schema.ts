@@ -10,9 +10,7 @@ import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator(
-  (name) => `clipbroker_v3_${name}`,
-);
+export const createTable = sqliteTableCreator((name) => name);
 
 export const users = createTable("user", {
   id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
