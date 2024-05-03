@@ -14,10 +14,22 @@ export const createTable = sqliteTableCreator(
   (name) => `clipbroker_v3_${name}`,
 );
 
+export const users = createTable("user", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  clipboardId: text("clipboardId", { length: 6 }).notNull(),
+  pin: text("content", { length: 3000 }),
+
+  createdAt: int("created_at", { mode: "timestamp" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: int("updatedAt", { mode: "timestamp" }),
+});
+
 export const texts = createTable("text", {
   id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   content: text("content", { length: 3000 }).notNull(),
   note: text("note", { length: 256 }),
+  userId: int("user_id", { mode: "number" }).references(() => users.id),
   createdAt: int("created_at", { mode: "timestamp" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
