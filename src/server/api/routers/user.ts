@@ -13,19 +13,16 @@ export const userRouter = createTRPCRouter({
           where: eq(users.clipboardId, input.id),
         });
 
-        console.log(input.id);
-        console.log(data);
-
-        if (!data) {
+        if (data) {
+          return { id: data.clipboardId, pin: data.pin };
+        } else {
           const insertResponse = await ctx.db
             .insert(users)
             .values({ clipboardId: input.id })
             .returning({ id: users.clipboardId, pin: users.pin });
 
-          console.log("insert", insertResponse);
+          return insertResponse[0];
         }
-
-        return data;
       } catch (error) {
         console.log("something wrong with finding or create new user", error);
       }
