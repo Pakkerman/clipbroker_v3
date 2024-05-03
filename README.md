@@ -4,4 +4,5 @@
 
 - [x] connect database
 - [x] create text
-- [ ] show created text
+- [x] show created text
+- [x] delete text

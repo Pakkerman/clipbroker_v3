@@ -5,12 +5,14 @@ import { api } from "~/trpc/react";
 
 export function CreateText({}) {
   const [pre, setPre] = useState("");
+  const utils = api.useUtils();
   const { mutate } = api.text.create.useMutation({
     onMutate: () => {
       setPre("text.create.mutate");
     },
     onSuccess: () => {
       setPre("text.create success");
+      utils.text.invalidate();
     },
     onError: (error) => {
       const msg =
