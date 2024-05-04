@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
 import { api } from "~/trpc/react";
 import { generateId } from "~/utils/utils";
 
-type ClipboardContext = { id: string | undefined };
+type ClipboardContext = { id: string };
 const ClipboardContext = createContext<ClipboardContext | null>(null);
 
 export function ClipboardContextProvider({
@@ -13,12 +13,9 @@ export function ClipboardContextProvider({
   children: React.ReactNode;
 }) {
   const randomId = generateId();
-  const { isLoading, data } = api.user.getOrInsertOne.useQuery({
-    id: randomId,
-  });
 
   return (
-    <ClipboardContext.Provider value={{ id: data?.clipboardId }}>
+    <ClipboardContext.Provider value={{ id: randomId }}>
       {children}
     </ClipboardContext.Provider>
   );

@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { ClipboardContextProvider } from "./api/hooks/useClipboard";
+import { ClipboardContextProvider } from "./api/context/ClipboardContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,17 +22,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClipboardContextProvider>
-      <html lang="en">
-        <body
-          className={`
+    <html lang="en">
+      <body
+        className={`
           ${inter.variable}
           flex h-[100svh] items-center justify-center bg-black p-4 font-sans text-white
         `}
-        >
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </body>
-      </html>
-    </ClipboardContextProvider>
+      >
+        <TRPCReactProvider>
+          <ClipboardContextProvider>{children}</ClipboardContextProvider>
+        </TRPCReactProvider>
+      </body>
+    </html>
   );
 }
