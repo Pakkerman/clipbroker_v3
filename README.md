@@ -15,4 +15,4 @@
     - [ ] append random string of 6 digits and push to url
     - [ ] create user with string of digits
 
-- [ ] Deploy
+- [x] Deploy
