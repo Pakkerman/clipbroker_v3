@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pre {
+  @apply fixed bottom-4 left-4 text-sm;
+}
