@@ -27,9 +27,33 @@ export const userRouter = createTRPCRouter({
         console.log("something wrong with finding or create new user", error);
       }
     }),
-  // create: publicProcedure
-  //   .input(z.object({ content: z.string().min(1) }))
-  //   .mutation(async ({ ctx, input }) => {
-  //
-  //   }),
+
+  getUser: publicProcedure
+    .input(z.object({ id: z.string().length(6) }))
+    .query(async ({ ctx, input }) => {
+      try {
+        const user = ctx.db.query.users.findFirst({
+          where: eq(users.clipboardId, input.id),
+        });
+
+        return user;
+      } catch (error) {
+        console.log("something wrong with getting user", error);
+      }
+    }),
+
+  create: publicProcedure
+    .input(z.object({ id: z.string().length(6) }))
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const insertedUser = await ctx.db
+          .insert(users)
+          .values({ clipboardId: input.id })
+          .returning({ clipboardId: users.clipboardId, pin: users.pin });
+
+        return insertedUser[0];
+      } catch (error) {
+        console.log("something wrong with creating new user with id", error);
+      }
+    }),
 });
