@@ -9,7 +9,7 @@ export const userRouter = createTRPCRouter({
     .input(z.object({ id: z.string().length(6) }))
     .query(async ({ ctx, input }) => {
       try {
-        let data = await ctx.db.query.users.findFirst({
+        const data = await ctx.db.query.users.findFirst({
           where: eq(users.clipboardId, input.id),
         });
 

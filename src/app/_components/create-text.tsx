@@ -10,13 +10,13 @@ export function CreateText({}) {
     onMutate: () => {
       setPre("text.create.mutate");
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       setPre("text.create success");
-      utils.text.invalidate();
+      await utils.text.invalidate();
     },
     onError: (error) => {
       const msg =
-        error.data?.zodError?.fieldErrors?.content?.[0] ||
+        error.data?.zodError?.fieldErrors?.content?.[0] ??
         "something is wrong with create text";
 
       setPre(msg);

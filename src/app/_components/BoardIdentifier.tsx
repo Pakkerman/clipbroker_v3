@@ -16,7 +16,8 @@ export function BoardIdentifier({ newId }: { newId: string }) {
       <form
         className="flex flex-col"
         action={async (formData) => {
-          const id = formData.get("id") || newId;
+          const id = (formData.get("id") as string) ?? newId;
+          console.log(formData);
           router.push(`/${id}`);
         }}
       >

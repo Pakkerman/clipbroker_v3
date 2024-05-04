@@ -7,13 +7,12 @@ export function Texts() {
 
   return (
     <ul className="w-full">
-      {data &&
-        data.map((item) => (
-          <li className="flex w-full justify-between" key={item.id}>
-            {item.content}
-            <DeleteButton id={item.id} />
-          </li>
-        ))}
+      {data?.map((item) => (
+        <li className="flex w-full justify-between" key={item.id}>
+          {item.content}
+          <DeleteButton id={item.id} />
+        </li>
+      ))}
     </ul>
   );
 }
@@ -21,8 +20,8 @@ export function Texts() {
 export function DeleteButton({ id }: { id: number }) {
   const utils = api.useUtils();
   const { mutate } = api.text.delete.useMutation({
-    onSuccess: () => {
-      utils.text.getAll.invalidate();
+    onSuccess: async () => {
+      await utils.text.getAll.invalidate();
     },
   });
 
