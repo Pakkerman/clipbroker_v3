@@ -26,7 +26,7 @@ export async function logout() {
 
 const key = new TextEncoder().encode("salt");
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: { clipboardId: string; pin: string }) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -39,7 +39,7 @@ export async function decrypt(input: string) {
   return payload;
 }
 
-export async function getSession() {
+export function getSession() {
   return {
     clipboardId: cookies().get("clipboardId")?.value,
     pin: cookies().get("pin")?.value,
@@ -47,4 +47,4 @@ export async function getSession() {
   // return await decrypt(session);
 }
 
-export async function updateSession(request: NextRequest) {}
+// export async function updateSession(request: NextRequest) {}

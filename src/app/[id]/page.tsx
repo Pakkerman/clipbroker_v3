@@ -9,7 +9,7 @@ export default async function ClipboardPage({
 }: {
   params: { id: string };
 }) {
-  const { clipboardId, pin } = await getSession();
+  const { clipboardId, pin } = getSession();
 
   return (
     <div>
