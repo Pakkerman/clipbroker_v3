@@ -7,7 +7,8 @@ import { eq } from "drizzle-orm";
 
 import { db } from "~/server/db";
 import { users } from "~/server/db/schema";
-import { generateId } from "~/utils/utils";
+import { generateId } from "~/lib/utils";
+import { cookies } from "next/headers";
 
 export async function getBoardIds() {
   const data = await db.select().from(users);
@@ -31,5 +32,6 @@ export async function getNewId(): Promise<string> {
     rand = generateId();
   }
 
+  // cookies().set("clipboardId", rand);
   return rand;
 }

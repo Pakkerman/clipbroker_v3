@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { getNewId } from "~/server/db/functions/user";
 
@@ -8,10 +8,8 @@ export async function login(formData: FormData) {
   const clipboardId = formData.get("clipboardId") as string;
   const pin = formData.get("pin") as string;
 
-  const newId = await getNewId();
-
   const payload = { clipboardId, pin };
-  cookies().set("clipboardId", newId);
+  cookies().set("clipboardId", clipboardId);
   cookies().set("pin", pin);
 
   // const expires = new Date(Date.now() + 10 * 1000);
@@ -23,7 +21,7 @@ export async function login(formData: FormData) {
 export async function logout() {
   cookies().set("clipboardId", "", { expires: new Date(0) });
   cookies().set("pin", "", { expires: new Date(0) });
-  redirect("/");
+  redirect("/", "replace" as RedirectType);
 }
 
 const key = new TextEncoder().encode("salt");
@@ -42,9 +40,10 @@ export async function decrypt(input: string) {
 }
 
 export async function getSession() {
-  const session = cookies().get("clipboardId")?.value;
-  if (!session) return null;
-  return session;
+  return {
+    clipboardId: cookies().get("clipboardId")?.value,
+    pin: cookies().get("pin")?.value,
+  };
   // return await decrypt(session);
 }
 

@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 import { api } from "~/trpc/react";
-import { generateId } from "~/utils/utils";
+import { generateId } from "~/lib/utils";
 
 type ClipboardContext = { id: string };
 const ClipboardContext = createContext<ClipboardContext | null>(null);
