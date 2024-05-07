@@ -1,11 +1,9 @@
 import { getSession, logout } from "~/lib/session";
-import { api } from "~/trpc/react";
 import { CreateText } from "../_components/create-text";
 import { Texts } from "../_components/texts";
-import { redirect } from "next/navigation";
 
 export default async function ClipboardPage({
-  params,
+  params: { id },
 }: {
   params: { id: string };
 }) {
@@ -30,7 +28,7 @@ export default async function ClipboardPage({
         </button>
       </form>
 
-      <pre>{JSON.stringify(params, null, 2)}</pre>
+      <pre>{JSON.stringify(id, null, 2)}</pre>
     </div>
   );
 }

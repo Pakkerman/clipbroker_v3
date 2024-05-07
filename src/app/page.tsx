@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
-import { getSession, login } from "~/lib/session";
 import { cookies } from "next/headers";
-import { LoginForm } from "./_components/LoginForm";
+import { redirect } from "next/navigation";
+import { getSession } from "~/lib/session";
 import { generateId } from "~/lib/utils";
+import { LoginForm } from "./_components/LoginForm";
 
 export default async function Home() {
   const { clipboardId, pin } = getSession();

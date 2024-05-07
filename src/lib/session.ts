@@ -4,10 +4,7 @@ import { RedirectType, redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { getNewId } from "~/server/db/functions/user";
 
-export async function login(formData: FormData) {
-  const clipboardId = formData.get("clipboardId") as string;
-  const pin = formData.get("pin") as string;
-
+export async function login(clipboardId: string, pin: string) {
   const payload = { clipboardId, pin };
   cookies().set("clipboardId", clipboardId);
   cookies().set("pin", pin);
@@ -47,4 +44,15 @@ export function getSession() {
   // return await decrypt(session);
 }
 
-// export async function updateSession(request: NextRequest) {}
+export async function updateSession(request: NextRequest) {
+  const id = request.url.split("/")[3]!;
+  if (!id) return;
+
+  const res = NextResponse.next();
+  res.cookies.set({
+    name: "clipboardId",
+    value: id,
+  });
+
+  return res;
+}
