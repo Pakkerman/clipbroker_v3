@@ -1,14 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { loginAction } from "~/server/actions";
 
-export function LoginForm({
-  loginAction,
-  id,
-}: {
-  loginAction: any;
-  id: string;
-}) {
+export function LoginForm({ id }: { id: string }) {
   const [input, setInput] = useState(id);
 
   return (
