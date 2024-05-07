@@ -9,14 +9,15 @@
 - [x] Show created text
 - [x] Delete text
 
-- [ ] Auth login
+### Auth
 
-  - [x] Create user table
-  - [x] Auto assign board when users login at '/' and have no session cookie
+- [x] Create user table
+- [x] Auto assign board when users login at '/' and have no session cookie
+- [x] Login user and update session when user visit with /:id
 
-  - [ ] Allow user to set pin to lock board
+- [ ] Allow user to set pin to lock board
 
-  - [x] Logout user ( clean up session cookie )
+- [x] Logout user ( clean up session cookie )
 
 - [ ] Board sharing
   - [ ] Embed board id and pin in url for quick sharing
