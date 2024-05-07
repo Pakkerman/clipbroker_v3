@@ -2,17 +2,22 @@
 
 ## TODOs
 
-- [x] connect database
-- [x] create text
-- [x] show created text
-- [x] delete text
-
-- [ ] user login and pin lock
-
-  - [x] user table
-  - [ ] auto assign board when user login at '/'
-    - [x] find or create new user in db
-    - [ ] append random string of 6 digits and push to url
-    - [ ] create user with string of digits
-
 - [x] Deploy
+
+- [x] Connect database
+- [x] Create text
+- [x] Show created text
+- [x] Delete text
+
+- [ ] Auth login
+
+  - [x] Create user table
+  - [x] Auto assign board when users login at '/' and have no session cookie
+
+  - [ ] Allow user to set pin to lock board
+
+  - [x] Logout user ( clean up session cookie )
+
+- [ ] Board sharing
+  - [ ] Embed board id and pin in url for quick sharing
+  - [ ] QRcode scan on the screen, for quick share with device with camera
