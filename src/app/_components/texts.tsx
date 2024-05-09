@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { api } from "~/trpc/react";
 
 export function Texts({ userId }: { userId: number }) {
@@ -8,11 +9,11 @@ export function Texts({ userId }: { userId: number }) {
   });
 
   return (
-    <ul className="w-full">
+    <ul className="flex h-[80%] w-[375px] flex-col gap-2 rounded-md border-2 border-white/20 p-2">
       {isLoading && <p>loading...</p>}
       {data?.map((item) => (
-        <li className="flex w-full justify-between" key={item.id}>
-          {item.content}
+        <li className="flex justify-between" key={item.id}>
+          <p className={clsx("")}>{item.content}</p>
           <DeleteButton id={item.id} userId={userId} />
         </li>
       ))}

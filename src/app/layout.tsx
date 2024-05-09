@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { ClipboardContextProvider } from "./api/context/ClipboardContext";
+import { Navbar } from "./_components/navbar";
+import clsx from "clsx";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,16 +25,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`
-          ${inter.variable}
-          flex h-[100svh] items-center justify-center bg-black p-4 font-sans text-white
-        `}
-      >
-        <TRPCReactProvider>
-          <ClipboardContextProvider>{children}</ClipboardContextProvider>
-        </TRPCReactProvider>
-      </body>
+      <TRPCReactProvider>
+        <ClipboardContextProvider>
+          <body
+            className={clsx(
+              "flex h-[100svh] flex-col bg-black font-sans text-white",
+              inter.variable,
+            )}
+          >
+            {children}
+          </body>
+        </ClipboardContextProvider>
+      </TRPCReactProvider>
     </html>
   );
 }

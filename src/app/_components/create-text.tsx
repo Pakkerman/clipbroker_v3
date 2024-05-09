@@ -8,7 +8,7 @@ export function CreateText({ userId }: { userId: number }) {
   const [pre, setPre] = useState("");
   const [clipboardText, setClipboardText] = useState("");
   const utils = api.useUtils();
-  const { mutate } = api.text.create.useMutation({
+  const { mutate, isPending } = api.text.create.useMutation({
     onMutate: () => {
       setPre("text.create.mutate");
     },
@@ -20,7 +20,6 @@ export function CreateText({ userId }: { userId: number }) {
       const msg =
         error.data?.zodError?.fieldErrors?.content?.[0] ??
         "something is wrong with create text";
-
       setPre(msg);
     },
   });
@@ -51,7 +50,11 @@ export function CreateText({ userId }: { userId: number }) {
         placeholder={clipboardText}
         autoComplete="off"
       />
-      <button className="" type="submit">
+      <button
+        className="rounded-md border-2 border-white/20 p-2"
+        type="submit"
+        disabled={isPending}
+      >
         create
       </button>
       <pre className="fixed bottom-0 left-0 p-2 text-sm">{pre}</pre>
