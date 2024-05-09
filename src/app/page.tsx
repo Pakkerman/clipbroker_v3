@@ -5,10 +5,10 @@ import { generateId } from "~/lib/utils";
 import { LoginForm } from "./_components/LoginForm";
 
 export default async function Home() {
-  const { clipboardId, pin } = getSession();
-  if (clipboardId != null) redirect(`/${clipboardId}/`);
+  const { userId, alias, pin, lastVisitedAlias } = await getSession();
+  if (alias) redirect(`/${alias}/`);
 
-  const newId = generateId();
+  const newId: string = lastVisitedAlias ?? generateId();
 
   return (
     <section className="flex h-full flex-col items-center justify-center">

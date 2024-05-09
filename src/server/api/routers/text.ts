@@ -1,43 +1,50 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { texts } from "~/server/db/schema";
 
 export const textRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx, input }) => {
-    try {
-      const data = await ctx.db.query.texts.findMany({
-        orderBy: (texts, { desc }) => [desc(texts.createdAt)],
-      });
+  getAll: publicProcedure
+    .input(z.object({ userId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      try {
+        const data = await ctx.db.query.texts.findMany({
+          where: (texts, { eq }) => eq(texts.userId, input.userId),
+          orderBy: (texts, { desc }) => [desc(texts.createdAt)],
+        });
 
-      console.log("getAll", data.length, "entries");
-      return data;
-    } catch (error) {
-      console.log("something wrong with getAll text", error);
-    }
-  }),
+        console.log("getAll", data.length, "entries");
+        return data;
+      } catch (error) {
+        throw new Error(JSON.stringify(error, null, 2));
+      }
+    }),
+
   create: publicProcedure
-    .input(z.object({ content: z.string().min(1) }))
+    .input(z.object({ content: z.string().min(1), userId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       try {
         await ctx.db.insert(texts).values({
           content: input.content,
+          userId: input.userId,
         });
 
         console.log("insert", input.content);
       } catch (error) {
-        console.log("something wrong with create text", error);
+        throw new Error(JSON.stringify(error, null, 2));
       }
     }),
 
   delete: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.number(), userId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       try {
-        await ctx.db.delete(texts).where(eq(texts.id, input.id));
+        await ctx.db
+          .delete(texts)
+          .where(and(eq(texts.id, input.id), eq(texts.userId, input.userId)));
       } catch (error) {
-        console.log("something wrong with delete text", error);
+        throw new Error(JSON.stringify(error, null, 2));
       }
     }),
 });

@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { api } from "~/trpc/react";
 import { generateId } from "~/lib/utils";
 
 type ClipboardContext = { id: string };

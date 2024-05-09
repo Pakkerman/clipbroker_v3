@@ -2,22 +2,25 @@
 
 import { api } from "~/trpc/react";
 
-export function Texts() {
-  const { data, isLoading } = api.text.getAll.useQuery();
+export function Texts({ userId }: { userId: number }) {
+  const { data, isLoading } = api.text.getAll.useQuery({
+    userId: userId,
+  });
 
   return (
     <ul className="w-full">
+      {isLoading && <p>loading...</p>}
       {data?.map((item) => (
         <li className="flex w-full justify-between" key={item.id}>
           {item.content}
-          <DeleteButton id={item.id} />
+          <DeleteButton id={item.id} userId={userId} />
         </li>
       ))}
     </ul>
   );
 }
 
-export function DeleteButton({ id }: { id: number }) {
+export function DeleteButton({ id, userId }: { id: number; userId: number }) {
   const utils = api.useUtils();
   const { mutate } = api.text.delete.useMutation({
     onSuccess: async () => {
@@ -29,7 +32,7 @@ export function DeleteButton({ id }: { id: number }) {
     <button
       className="text-red"
       onClick={() => {
-        mutate({ id });
+        mutate({ id, userId });
       }}
     >
       <svg

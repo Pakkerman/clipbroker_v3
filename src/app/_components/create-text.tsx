@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { api } from "~/trpc/react";
 
-export function CreateText({}) {
+export function CreateText({ userId }: { userId: number }) {
   const [pre, setPre] = useState("");
   const utils = api.useUtils();
   const { mutate } = api.text.create.useMutation({
@@ -25,7 +25,10 @@ export function CreateText({}) {
   return (
     <form
       action={(data) => {
-        mutate({ content: data.get("content") as string });
+        mutate({
+          userId,
+          content: data.get("content") as string,
+        });
       }}
       className="flex flex-col"
     >

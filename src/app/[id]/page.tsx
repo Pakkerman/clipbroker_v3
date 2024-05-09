@@ -7,13 +7,13 @@ export default async function ClipboardPage({
 }: {
   params: { id: string };
 }) {
-  const { clipboardId, pin } = getSession();
+  const { userId, alias } = await getSession();
 
   return (
     <div>
-      <h1 className="">this board {clipboardId}</h1>
-      <Texts />
-      <CreateText />
+      <h1 className="">this board {alias}</h1>
+      <Texts userId={userId} />
+      <CreateText userId={userId} />
       <form
         action={async () => {
           "use server";

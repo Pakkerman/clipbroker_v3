@@ -1,14 +1,44 @@
 import "server-only";
-//
-import { eq } from "drizzle-orm";
-// import { auth } from "@clerk/nextjs/server";
-// import { redirect } from "next/navigation";
-// import { revalidatePath } from "next/cache";
 
+import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
 import { users } from "~/server/db/schema";
 import { generateId } from "~/lib/utils";
-import { cookies } from "next/headers";
+
+export async function getOrCreateUser(alias: string) {
+  try {
+    const user = await db.query.users.findFirst({
+      where: eq(users.alias, alias),
+    });
+
+    if (user) return user;
+
+    await db.insert(users).values({ alias });
+    return await db.query.users.findFirst({
+      where: eq(users.alias, alias),
+    });
+  } catch (error) {
+    throw new Error(JSON.stringify(error, null, 2));
+  }
+}
+
+// export async function getUser(clipboardId: string) {
+//   try {
+//     await db.query.users.findFirst({
+//       where: eq(users.alias, clipboardId),
+//     });
+//   } catch (error) {
+//     console.log("something wrong with getting user", error);
+//   }
+// }
+//
+// export async function createUser(clipboardId: string) {
+//   try {
+//     await db.insert(users).values({ clipboardId });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export async function getBoardIds() {
   const data = await db.select().from(users);
@@ -17,7 +47,7 @@ export async function getBoardIds() {
 
 export async function validNewBoardId(id: string): Promise<boolean> {
   const data = await db.query.users.findFirst({
-    where: eq(users.clipboardId, id),
+    where: eq(users.alias, id),
   });
 
   return data ? true : false;
@@ -26,9 +56,7 @@ export async function validNewBoardId(id: string): Promise<boolean> {
 export async function getNewId(): Promise<string> {
   let rand = generateId();
 
-  while (
-    await db.query.users.findFirst({ where: eq(users.clipboardId, rand) })
-  ) {
+  while (await db.query.users.findFirst({ where: eq(users.alias, rand) })) {
     rand = generateId();
   }
 

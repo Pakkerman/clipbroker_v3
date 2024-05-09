@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
-import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
+import { int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -14,22 +14,21 @@ export const createTable = sqliteTableCreator((name) => name);
 
 export const users = createTable("user", {
   id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-  clipboardId: text("clipboardId", { length: 6 }).notNull(),
-  pin: text("pin", { length: 4 }),
+  alias: text("alias", { length: 50 }).notNull(),
+  pin: text("pin", { length: 4 }).notNull().default(""),
 
-  createdAt: int("created_at", { mode: "timestamp" })
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: int("updatedAt", { mode: "timestamp" }),
+  createdAt: text("created_at").default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: int("updated_at", { mode: "timestamp" }),
 });
 
 export const texts = createTable("text", {
   id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   content: text("content", { length: 3000 }).notNull(),
   note: text("note", { length: 256 }),
-  userId: int("user_id", { mode: "number" }).references(() => users.id),
-  createdAt: int("created_at", { mode: "timestamp" })
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: int("updatedAt", { mode: "timestamp" }),
+  userId: int("user_id")
+    .notNull()
+    .references(() => users.id),
+
+  createdAt: text("created_at").default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: int("updated_at", { mode: "timestamp" }),
 });
