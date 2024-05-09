@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 
 export function CreateText({ userId }: { userId: number }) {
   const [pre, setPre] = useState("");
+  const [clipboardText, setClipboardText] = useState("");
   const utils = api.useUtils();
   const { mutate } = api.text.create.useMutation({
     onMutate: () => {
@@ -22,21 +24,31 @@ export function CreateText({ userId }: { userId: number }) {
       setPre(msg);
     },
   });
+
+  useEffect(() => {
+    window.navigator.clipboard
+      .readText()
+      .then((data) => setClipboardText(data));
+  }, []);
+
   return (
     <form
       action={(data) => {
         mutate({
           userId,
-          content: data.get("content") as string,
+          content:
+            data.get("content") !== ""
+              ? (data.get("content") as string)
+              : clipboardText,
         });
       }}
       className="flex flex-col"
     >
       <input
+        className={clsx("rounded-md p-2 text-black ")}
         name="content"
         type="text"
-        placeholder="paste something"
-        className="text-black"
+        placeholder={clipboardText}
         autoComplete="off"
       />
       <button className="" type="submit">
