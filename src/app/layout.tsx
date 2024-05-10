@@ -29,7 +29,7 @@ export default function RootLayout({
         <ClipboardContextProvider>
           <body
             className={clsx(
-              "flex h-[100svh] flex-col items-center justify-center bg-black font-sans text-white",
+              "flex h-[100svh] flex-col items-center justify-center bg-black font-sans ",
               font.variable,
             )}
           >

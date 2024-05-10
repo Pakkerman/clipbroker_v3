@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { loginAction } from "~/server/actions";
 import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 
 export function LoginForm({ id }: { id: string }) {
   const [input, setInput] = useState(id);
@@ -13,7 +14,7 @@ export function LoginForm({ id }: { id: string }) {
       action={loginAction}
     >
       <label htmlFor="clipboardId">Board Id</label>
-      <input
+      <Input
         className="rounded-md bg-emerald-50 p-2 text-center text-black"
         type="text"
         name="clipboardId"
