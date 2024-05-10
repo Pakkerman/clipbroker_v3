@@ -1,3 +1,4 @@
+import { Footer } from "../_components/footer";
 import { Navbar } from "../_components/navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -7,6 +8,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Navbar />
       </nav>
       <main className="w-full grow overflow-y-scroll">{children}</main>
+      <footer className="h-16 w-full border-t border-white/20">
+        <Footer />
+      </footer>
     </>
   );
 }
