@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { loginAction } from "~/server/actions";
+import { Button } from "~/components/ui/button";
 
 export function LoginForm({ id }: { id: string }) {
   const [input, setInput] = useState(id);
@@ -21,12 +22,12 @@ export function LoginForm({ id }: { id: string }) {
         onChange={(event) => setInput(event.target.value)}
         value={input}
       />
-      <button
+      <Button
         type="submit"
         className="rounded-md border-[1px] border-white p-2"
       >
         login
-      </button>
+      </Button>
     </form>
   );
 }
