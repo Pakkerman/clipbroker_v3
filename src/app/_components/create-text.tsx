@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { api } from "~/trpc/react";
 
 export function CreateText({ userId }: { userId: number }) {
@@ -15,6 +16,7 @@ export function CreateText({ userId }: { userId: number }) {
     onSuccess: async () => {
       setPre("text.create success");
       await utils.text.invalidate();
+      toast.success("new text created");
     },
     onError: (error) => {
       const msg =

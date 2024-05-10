@@ -16,8 +16,8 @@ export default async function ClipboardPage({
     <div className="flex h-full w-full flex-col items-center justify-between py-8">
       <Texts userId={userId} />
       <CreateText userId={userId} />
-      <pre>{JSON.stringify(id, null, 2)}</pre>
-      <pre>{JSON.stringify(await getSession(), null, 2)}</pre>
+      {/* <pre>{JSON.stringify(id, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(await getSession(), null, 2)}</pre> */}
     </div>
   );
 }
