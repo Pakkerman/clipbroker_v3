@@ -22,3 +22,8 @@
 - [ ] Board sharing
   - [ ] Embed board id and pin in url for quick sharing
   - [ ] QRcode scan on the screen, for quick share with device with camera
+
+### Styling/UI
+
+- [x] Shadcn/ui
+- [ ] AutoAnimate
