@@ -27,7 +27,7 @@ export function LoginForm({
         </span>
       </label>
       <Input
-        className="rounded-md bg-emerald-50 p-2 text-center text-black"
+        className="rounded-md bg-slate-50 p-2 text-center text-black"
         type="text"
         name="clipboardId"
         placeholder={id}
@@ -37,10 +37,7 @@ export function LoginForm({
       />
       <Button
         type="submit"
-        className={clsx(
-          "w-full rounded-md bg-emerald-500 p-2",
-          getBgColor(colorSeed),
-        )}
+        className={clsx(" w-full rounded-md p-2", getBgColor(colorSeed))}
       >
         Login
       </Button>

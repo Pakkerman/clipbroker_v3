@@ -5,13 +5,9 @@ export async function Navbar() {
   const { alias } = await getSession();
 
   return (
-    <section
-      className={clsx(
-        "flex w-full items-center justify-between border-b border-white/20 p-4 transition-all",
-      )}
-    >
+    <section className={clsx("flex w-full items-center justify-between p-4 ")}>
       <div className=" bg-gradient-to-r from-emerald-400 from-20% to-yellow-300 bg-clip-text text-3xl font-bold leading-none text-transparent transition">
-        Clipbroker3
+        Clipbroker
       </div>
       <div className="flex items-center gap-2">
         <p>{alias}</p>

@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Textarea } from "~/components/ui/textarea";
 import { api } from "~/trpc/react";
 
 export function CreateText({ userId }: { userId: number }) {
@@ -35,6 +36,7 @@ export function CreateText({ userId }: { userId: number }) {
 
   return (
     <form
+      className="flex w-[90%] max-w-[500px] flex-col gap-2 "
       action={(data) => {
         mutate({
           userId,
@@ -44,12 +46,10 @@ export function CreateText({ userId }: { userId: number }) {
               : clipboardText,
         });
       }}
-      className="flex flex-col"
     >
-      <input
-        className={clsx("rounded-md p-2 text-black ")}
+      <Textarea
+        className={clsx("w-full rounded-md p-2")}
         name="content"
-        type="text"
         placeholder={clipboardText}
         autoComplete="off"
       />
@@ -60,7 +60,7 @@ export function CreateText({ userId }: { userId: number }) {
       >
         create
       </button>
-      <pre className="fixed bottom-0 left-0 p-2 text-sm">{pre}</pre>
+      {/* <pre className="fixed bottom-0 left-0 p-2 text-sm">{pre}</pre> */}
     </form>
   );
 }

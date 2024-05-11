@@ -29,13 +29,10 @@ export default function RootLayout({
       <TRPCReactProvider>
         <ClipboardContextProvider>
           <body
-            className={clsx(
-              "dark flex h-[100svh] flex-col items-center justify-center bg-black font-sans",
-              font.variable,
-            )}
+            className={clsx("dark w-full bg-black font-sans", font.variable)}
           >
-            <div className="fixed left-[-150px] z-[-1] h-96 w-96 rounded-full bg-emerald-600/10 blur-[8rem]"></div>
-            <div className="fixed bottom-[-250px] right-[-100px] z-[-1] h-96 w-96 rounded-full bg-yellow-300/10 blur-[12rem]"></div>
+            <div className="fixed left-[-150px] z-[-1] h-96 w-96 rounded-full bg-emerald-600/10 blur-[8rem]" />
+            <div className="fixed bottom-[-250px] right-[-100px] z-[-1] h-96 w-96 rounded-full bg-yellow-300/10 blur-[12rem]" />
             {children}
             <Toaster />
           </body>

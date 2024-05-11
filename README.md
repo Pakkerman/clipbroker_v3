@@ -26,4 +26,4 @@
 ### Styling/UI
 
 - [x] Shadcn/ui
-- [ ] AutoAnimate
+- [x] AutoAnimate
