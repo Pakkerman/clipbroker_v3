@@ -1,19 +1,31 @@
 "use client";
 
+import clsx from "clsx";
 import { useState } from "react";
-import { loginAction } from "~/server/actions";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import { getBgColor } from "~/lib/colors";
+import { loginAction } from "~/server/actions";
 
-export function LoginForm({ id }: { id: string }) {
+export function LoginForm({
+  id,
+  colorSeed,
+}: {
+  id: string;
+  colorSeed: number;
+}) {
   const [input, setInput] = useState(id);
 
   return (
     <form
-      className="flex flex-col items-center justify-center gap-2"
+      className="flex w-full max-w-[325px] flex-col items-center justify-center gap-2 "
       action={loginAction}
     >
-      <label htmlFor="clipboardId">Board Id</label>
+      <label htmlFor="clipboardId">
+        <span className="md:text-md text-sm">
+          Choose an alias and get clipping
+        </span>
+      </label>
       <Input
         className="rounded-md bg-emerald-50 p-2 text-center text-black"
         type="text"
@@ -23,7 +35,13 @@ export function LoginForm({ id }: { id: string }) {
         onChange={(event) => setInput(event.target.value)}
         value={input}
       />
-      <Button type="submit" className="w-full rounded-md bg-emerald-500 p-2">
+      <Button
+        type="submit"
+        className={clsx(
+          "w-full rounded-md bg-emerald-500 p-2",
+          getBgColor(colorSeed),
+        )}
+      >
         Login
       </Button>
     </form>
