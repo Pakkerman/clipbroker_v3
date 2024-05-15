@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
 import { users } from "~/server/db/schema";
 import { generateId } from "~/lib/utils";
+import { getSession } from "~/lib/session";
 
 export async function getOrCreateUser(alias: string) {
   try {
@@ -22,13 +23,39 @@ export async function getOrCreateUser(alias: string) {
   }
 }
 
+export async function editAlias(newAlias: string) {
+  try {
+    const { alias, userId } = await getSession();
+    if (!alias)
+      throw new Error(
+        "somthing wrong with edit alias, alias of current user doesn't exist",
+      );
+    if (!userId)
+      throw new Error(
+        "somthing wrong with edit alias, userId of current user doesn't exist",
+      );
+
+    const alreadExistedUser = await db.query.users.findFirst({
+      where: eq(users.alias, newAlias),
+    });
+
+    if (alreadExistedUser) return false;
+
+    await db.update(users).set({ alias: newAlias }).where(eq(users.id, userId));
+
+    return true;
+  } catch (error) {
+    throw new Error(JSON.stringify(error, null, 2));
+  }
+}
+
 // export async function getUser(clipboardId: string) {
 //   try {
 //     await db.query.users.findFirst({
 //       where: eq(users.alias, clipboardId),
 //     });
 //   } catch (error) {
-//     console.log("something wrong with getting user", error);
+//     console.log("", error);
 //   }
 // }
 //

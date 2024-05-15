@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { api } from "~/trpc/react";
 import { CopyButton } from "../components/CopyButton";
 import { DeleteButton } from "../components/DeleteButton";
+import { Loading } from "../components/Loading";
 
 export function Texts({ userId }: { userId: number }) {
   const [animationParent] = useAutoAnimate();
@@ -17,7 +18,7 @@ export function Texts({ userId }: { userId: number }) {
       className="max-h-[500px] min-h-[300px] w-[90%] max-w-[500px] overflow-y-scroll rounded-md border border-white/20 p-2"
       ref={animationParent}
     >
-      {isLoading && <p>loading...</p>}
+      {isLoading && <Loading />}
       {data?.map((item) => (
         <li
           className="flex w-full justify-between gap-2 border-b p-2"

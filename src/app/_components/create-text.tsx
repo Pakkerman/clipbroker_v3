@@ -28,10 +28,12 @@ export function CreateText({ userId }: { userId: number }) {
   });
 
   useEffect(() => {
-    window.navigator.clipboard
-      .readText()
-      .then((data) => setClipboardText(data))
-      .catch((error) => JSON.stringify(error, null, 2));
+    if (window.navigator.clipboard) {
+      window.navigator.clipboard
+        .readText()
+        .then((data) => setClipboardText(data))
+        .catch((error) => JSON.stringify(error, null, 2));
+    }
   }, []);
 
   return (

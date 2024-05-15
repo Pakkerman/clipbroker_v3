@@ -56,4 +56,37 @@ export const userRouter = createTRPCRouter({
         console.log("something wrong with creating new user with id", error);
       }
     }),
+
+  getUserWithAlias: publicProcedure
+    .input(z.object({ alias: z.string() }))
+    .query(async ({ ctx, input }) => {
+      try {
+        return await ctx.db.query.users.findFirst({
+          where: eq(users.alias, input.alias),
+        });
+      } catch (error) {
+        console.log(
+          "something wrong with editing alias",
+          JSON.stringify(error, null, 2),
+        );
+      }
+    }),
+
+  editAlias: publicProcedure
+    .input(z.object({ from: z.string(), to: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const res = await ctx.db
+          .update(users)
+          .set({ alias: input.to })
+          .where(eq(users.alias, input.from));
+
+        console.log(res);
+      } catch (error) {
+        console.log(
+          "something wrong with editing alias",
+          JSON.stringify(error, null, 2),
+        );
+      }
+    }),
 });
