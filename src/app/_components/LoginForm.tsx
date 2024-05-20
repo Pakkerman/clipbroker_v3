@@ -32,7 +32,7 @@ export function LoginForm({
         name="clipboardId"
         placeholder={id}
         autoComplete="off"
-        onChange={(event) => setInput(event.target.value)}
+        onChange={(event) => setInput(event.target.value.toLowerCase())}
         value={input}
       />
       <Button
