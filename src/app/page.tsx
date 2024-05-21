@@ -13,7 +13,7 @@ export default async function Home() {
   const colorSeed = parseInt((Math.random() * 100).toFixed());
 
   return (
-    <section className="flex h-[100svh] flex-col items-center justify-around">
+    <section className="flex h-[100dvh] flex-col items-center justify-around">
       <div
         className={clsx(
           "fixed top-[55%] z-[-1] h-[200px] w-[200px] bg-opacity-40 blur-[7rem]",
