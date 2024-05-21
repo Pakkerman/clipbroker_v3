@@ -48,7 +48,7 @@ export const userRouter = createTRPCRouter({
       try {
         const insertedUser = await ctx.db
           .insert(users)
-          .values({ alias: input.alias })
+          .values({ alias: input.alias.toLowerCase() })
           .returning({ clipboardId: users.alias, pin: users.pin });
 
         return insertedUser[0];

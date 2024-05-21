@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { EditIcon } from "~/components/svgs";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
@@ -16,13 +17,13 @@ export function UserAlias({ alias }: { alias: string }) {
         setEditing(!editing);
       }}
     >
-      <h1>{alias}</h1>
+      <h1 id="alias">{alias}</h1>
       {editing && <Modal alias={alias} />}
     </div>
   );
 }
 
-function Modal({ alias }: { alias: string }) {
+export function Modal({ alias }: { alias: string }) {
   const router = useRouter();
   const [newAlias, setNewAlias] = useState(alias);
   const [checkAlias, setCheckAlias] = useState(alias);
@@ -88,7 +89,7 @@ function Modal({ alias }: { alias: string }) {
   );
 }
 
-function CheckAlias({
+export function CheckAlias({
   alias,
   newAlias,
   setAvailable,
@@ -119,4 +120,29 @@ function CheckAlias({
 
   setAvailable(false);
   return <p className="text-sm text-yellow-400">Alias is available</p>;
+}
+
+export function EditAliasButton() {
+  const [target, setTarget] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const element = document.querySelector("#alias");
+    if (!element) return;
+
+    setTarget(element as HTMLElement);
+  }, []);
+
+  return (
+    <Button
+      variant="outline"
+      className="h-8 w-8 rounded-md p-2"
+      onClick={() => {
+        if (target) {
+          target.click();
+        }
+      }}
+    >
+      <EditIcon />
+    </Button>
+  );
 }

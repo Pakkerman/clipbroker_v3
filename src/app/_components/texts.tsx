@@ -15,8 +15,8 @@ export function Texts({ userId }: { userId: number }) {
 
   return (
     <ul
-      className="max-h-[500px] min-h-[300px] w-[90%] max-w-[500px] overflow-y-scroll rounded-md border border-white/20 p-2"
       ref={animationParent}
+      className="max-h-[500px] min-h-[300px] w-[90%] max-w-[500px] overflow-y-scroll rounded-md border border-white/20 p-2"
     >
       {isLoading && <Loading />}
       {data?.map((item) => (
